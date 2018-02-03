@@ -1,0 +1,11 @@
+// Colors
+
+
+// Size
+$s-size: 1.2rem;
+$m-size: 1.6rem;
+$l-size: calc(2 * #{ $m-size });
+$xl-size: calc(3 * #{ $m-size });
+
+// Breakpoins
+$desktop-breakpoint: 45rem;

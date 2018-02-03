@@ -1,0 +1,21 @@
+
+html {
+    font-size: 62.5%; //base 10
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.6rem; // rest of app stays at 16
+    background: white;
+}
+
+button, input[type="submit"] {
+    cursor: pointer;
+    &:disabled {
+        cursor: default;
+    }
+}
+
+
+
+
