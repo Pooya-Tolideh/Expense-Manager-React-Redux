@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
-import { ExpenseDashboarComponent, EditComponent, HelpComponent, CreateComponent, PageNotFound, Header } from './temp.pageComponents';
+import ExpenseDashboardPage from '../components/ExpnseDashboardPage';
+import AddExpensePage from '../components/ExpnseDashboardPage';
+import EditExpensePage from '../components/EditExpensePage';
+import HelpPage from '../components/HelpPage';
+import PageNotFound from '../components/PageNotFound';
+import Header from '../components/Header';
+
 
 const AppRouter = () => (
     <BrowserRouter>
         <div>
         <Header/>
             <Switch>
-                <Route path="/" component={ExpenseDashboarComponent} exact={true}/>
-                <Route path="/create" component={CreateComponent} />
-                <Route path="/edit" component={EditComponent} />
-                <Route path="/help" component={HelpComponent} />
+                <Route path="/" component={ExpenseDashboardPage} exact={true}/>
+                <Route path="/create" component={AddExpensePage} />
+                <Route path="/edit/:id" component={EditExpensePage} />
+                <Route path="/help" component={HelpPage} />
                 <Route component={ PageNotFound } />
             </Switch>
         </div>
