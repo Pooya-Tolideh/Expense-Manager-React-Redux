@@ -1,3 +1,6 @@
+import uui from 'uuid';
+
+// ADD EXPENSE
 export const addExpense = ({
 	description = '',
 	note = '',
@@ -12,4 +15,20 @@ export const addExpense = ({
 		amount,
 		createdAt
 	}
+});
+
+
+// REMOVE EXPENSE   
+export const removeExpense = (expenseId) => ({
+	type: 'REMOVE_EXPENSE',
+	expenseId
+});
+
+
+
+// EDIT EXPENSE
+export const editExpense = (expenseId, updates) => ({
+	type: 'EDIT_EXPENSE',
+	expenseId,
+	updates
 });
