@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
+
+import { addExpense } from './actions/expenses';
+import { setTextFilter } from './actions/filters';
+import getVisibleExpenses from './selectors/visbleExpenses';
 
 import 'normalize.css/normalize.css';
 import './styles/style.scss';
@@ -8,11 +13,6 @@ import './styles/style.scss';
 import configureStore from './store/configure';
 
 const store = configureStore();
-
-
-import { addExpense } from './actions/expenses';
-import { setTextFilter } from './actions/filters';
-import getVisibleExpenses from './selectors/visbleExpenses';
 
 store.subscribe(() => {
     const state = store.getState();
@@ -34,5 +34,12 @@ store.dispatch(addExpense({
 store.dispatch(setTextFilter('car'));
 
 
-ReactDOM.render( <AppRouter/> , document.getElementById('app'));
+const jsx = (
+    <Provider>
+        <AppRouter/>
+    </Provider>
+)
+
+
+ReactDOM.render( jsx , document.getElementById('app'));
 
