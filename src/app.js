@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 
 import { addExpense } from './actions/expenses';
-import { setTextFilter } from './actions/filters';
+import { sortByAmount } from './actions/filters';
 import getVisibleExpenses from './selectors/visbleExpenses';
 
 import 'normalize.css/normalize.css';
@@ -34,11 +34,11 @@ store.dispatch(addExpense({
 setTimeout(()=>{
     store.dispatch(addExpense({
         description: 'pizza',
-        amount: 15
+        amount: 150
     }));
 }, 3000);
 
-store.dispatch(setTextFilter('car'));
+store.dispatch(sortByAmount());
 
 
 const jsx = (
