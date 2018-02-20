@@ -5,6 +5,7 @@ import AppRouter from './routers/AppRouter';
 
 import { addExpense } from './actions/expenses';
 import { sortByAmount } from './actions/filters';
+import { setTextFilter } from './actions/filters';
 import getVisibleExpenses from './selectors/visbleExpenses';
 
 import 'normalize.css/normalize.css';
@@ -16,9 +17,9 @@ const store = configureStore();
 
 store.subscribe(() => {
     const state = store.getState();
-    console.table(
-        getVisibleExpenses(state)
-    );
+    // console.table(
+    //     getVisibleExpenses(state)
+    // );
 });
 
 store.dispatch(addExpense({
