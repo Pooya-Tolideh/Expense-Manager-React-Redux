@@ -37,9 +37,7 @@ setTimeout(()=>{
         description: 'pizza',
         amount: 150
     }));
-}, 3000);
-
-store.dispatch(sortByAmount());
+}, 500);
 
 
 const jsx = (
