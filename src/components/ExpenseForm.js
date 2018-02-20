@@ -2,8 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import {SingleDatePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
-const now = moment();
-console.log(now.format('MMM Do, YYYY'))
 
 export default class ExpenseForm extends React.Component {
     
@@ -12,7 +10,8 @@ export default class ExpenseForm extends React.Component {
         amount: 0,
         note: '',
         createdAt: moment(),
-        calendarFocused: false
+        calendarFocused: false,
+        error: ''
     }
 
     onDescriptionChange = (e) => {
@@ -27,12 +26,19 @@ export default class ExpenseForm extends React.Component {
     }
 
     isValidAmount = (amount) => {
-        const regEx = /^\d*(\.\d{0,2})?$/;
-        return amount.match(regEx);
+        // startW/at least one digit->group(period->2digits)->end
+        const regEx = /^\d{1,}(\.\d{0,2})?$/;
+        // allow null
+        return (!amount || amount.match(regEx));
     }
 
+
+    // Date Picker Methods
+    //--------------------
     onDateChange = (createdAt) => {
-        this.setState(() => ({createdAt}));
+        // only update if date picked is not null
+        createdAt && 
+            this.setState(() => ({createdAt}));
     }
 
     onFocusChange = ({focused}) => {
@@ -42,13 +48,27 @@ export default class ExpenseForm extends React.Component {
     onNoteChange = (e) => {
         const note = e.target.value;
         this.setState(() => ({note}));
-    }   
+    }
+    
+    
+    // Form Submission
+    // ----------------
+    onFormSubmit = (e) => {
+        e.preventDefault();
+        const {amount, description} = this.state;
+        if (!amount) {
+            this.setState(() => ({error: 'ERROR: Please provide an amount'}))
+        } else if (!description) {
+            this.setState(() => ({error: 'ERROR: Please provide a description'}))
+        } else {
+            console.log('Submitted');
+        }
+    }
 
     render() {
         return (
-            <div>
+            <form onSubmit={this.onFormSubmit}>
                 <input
-
                     placeholder="expense description" 
                     type="text"
                     autoFocus
@@ -77,8 +97,8 @@ export default class ExpenseForm extends React.Component {
                 >
                 </textarea>
                 <button>Add Expense</button>
-
-            </div>
+                {this.state.error && <p>{this.state.error}</p>}
+            </form>
         );
     }
 }
