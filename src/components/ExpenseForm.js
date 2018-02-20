@@ -15,7 +15,13 @@ export default class ExpenseForm extends React.Component {
 
     onAmountChange = (e) => {
         const amount = e.target.value;
-        this.setState(() => ({amount}));
+        this.isValidAmount(amount) && 
+            this.setState(() => ({amount}));
+    }
+
+    isValidAmount = (amount) => {
+        const regEx = /^\d*(\.\d{0,2})?$/;
+        return amount.match(regEx);
     }
 
     onNoteChange = (e) => {
