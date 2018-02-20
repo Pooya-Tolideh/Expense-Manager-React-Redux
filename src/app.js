@@ -31,11 +31,18 @@ store.dispatch(addExpense({
     amount: 40
 }));
 
+setTimeout(()=>{
+    store.dispatch(addExpense({
+        description: 'pizza',
+        amount: 15
+    }));
+}, 3000);
+
 store.dispatch(setTextFilter('car'));
 
 
 const jsx = (
-    <Provider>
+    <Provider store={store}>
         <AppRouter/>
     </Provider>
 )
