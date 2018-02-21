@@ -7,7 +7,7 @@ export default class ExpenseForm extends React.Component {
     
     state = {
         description : '',
-        amount: 0,
+        amount: '',
         note: '',
         createdAt: moment(),
         calendarFocused: false,
@@ -55,13 +55,19 @@ export default class ExpenseForm extends React.Component {
     // ----------------
     onFormSubmit = (e) => {
         e.preventDefault();
-        const {amount, description} = this.state;
+        const {amount, description, createdAt, note} = this.state;
         if (!amount) {
-            this.setState(() => ({error: 'ERROR: Please provide an amount'}))
+            this.setState(() => ({ error: 'ERROR: Please provide an amount' }))
         } else if (!description) {
-            this.setState(() => ({error: 'ERROR: Please provide a description'}))
+            this.setState(() => ({ error: 'ERROR: Please provide a description' }))
         } else {
-            console.log('Submitted');
+           this.props.onSubmit({
+               description,
+               amount: parseFloat(amount, 10) * 100,
+               createdAt: createdAt.valueOf,
+               note
+           });
+           this.props.push(`/`);
         }
     }
 
@@ -76,7 +82,7 @@ export default class ExpenseForm extends React.Component {
                     onChange={this.onDescriptionChange}
                 />
                 <input 
-                    type="number"
+                    type="text"
                     placeholder="amount"
                     value={this.state.amount}
                     onChange={this.onAmountChange}
