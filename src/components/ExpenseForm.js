@@ -33,6 +33,11 @@ class ExpenseForm extends React.Component {
     }
 
 
+    onNoteChange = (e) => {
+        const note = e.target.value;
+        this.setState(() => ({note}));
+    }
+    
     // Date Picker Methods
     //--------------------
     onDateChange = (createdAt) => {
@@ -45,10 +50,6 @@ class ExpenseForm extends React.Component {
         this.setState(() => ({calendarFocused: focused}));
     }
 
-    onNoteChange = (e) => {
-        const note = e.target.value;
-        this.setState(() => ({note}));
-    }
     
     
     // Form Submission
