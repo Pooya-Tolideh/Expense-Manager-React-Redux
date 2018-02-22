@@ -14,9 +14,17 @@ const EditExpensePage = (props) => {
                     props.dispatch(editExpense(expenseId, expense));
                 }}
                 push={props.history.push}
+
+                {...props.expense}
             />
         </div>
     );
 };
 
-export default connect()(EditExpensePage);
+const mapStateToProps = (state, props) => ({
+    expense: state.expenses.find((expense) => {
+        return (props.match.params.id === expense.id);
+    })
+});
+
+export default connect(mapStateToProps)(EditExpensePage);
