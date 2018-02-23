@@ -3,15 +3,15 @@ import moment from 'moment';
 import {SingleDatePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-export default class ExpenseForm extends React.Component {
+class ExpenseForm extends React.Component {
     
     state = {
-        description : '',
-        amount: '',
-        note: '',
-        createdAt: moment(),
-        calendarFocused: false,
-        error: ''
+        description : this.props.description,
+        amount: this.props.amount,
+        note: this.props.note,
+        createdAt: moment(this.props.createdAt),
+        calendarFocused: this.props.calendarFocused,
+        error: this.props.error
     }
 
     onDescriptionChange = (e) => {
@@ -33,6 +33,11 @@ export default class ExpenseForm extends React.Component {
     }
 
 
+    onNoteChange = (e) => {
+        const note = e.target.value;
+        this.setState(() => ({note}));
+    }
+    
     // Date Picker Methods
     //--------------------
     onDateChange = (createdAt) => {
@@ -45,10 +50,6 @@ export default class ExpenseForm extends React.Component {
         this.setState(() => ({calendarFocused: focused}));
     }
 
-    onNoteChange = (e) => {
-        const note = e.target.value;
-        this.setState(() => ({note}));
-    }
     
     
     // Form Submission
@@ -64,7 +65,7 @@ export default class ExpenseForm extends React.Component {
            this.props.onSubmit({
                description,
                amount: parseFloat(amount, 10) * 100,
-               createdAt: createdAt.valueOf,
+               createdAt: createdAt.valueOf(),
                note
            });
            this.props.push(`/`);
@@ -72,6 +73,7 @@ export default class ExpenseForm extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <form onSubmit={this.onFormSubmit}>
                 <input
@@ -109,4 +111,6 @@ export default class ExpenseForm extends React.Component {
     }
 }
 
-// export default connect(, )(ExpenseForm);
+
+
+export default ExpenseForm;

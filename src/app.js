@@ -32,13 +32,6 @@ store.dispatch(addExpense({
     amount: 40
 }));
 
-setTimeout(()=>{
-    store.dispatch(addExpense({
-        description: 'pizza',
-        amount: 150
-    }));
-}, 500);
-
 
 const jsx = (
     <Provider store={store}>
