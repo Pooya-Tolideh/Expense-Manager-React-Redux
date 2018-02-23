@@ -6,11 +6,8 @@ import {setTextFilter, sortByAmount, sortByDate} from '../actions/filters';
 
 
 class ExpenseListFilters extends React.Component {
-    constructor(props) {
-        super(props);
 
-        const state = {}
-    }
+    state = {}
 
     handleTextInput = (e) => this.props.dispatch(setTextFilter(e.target.value))
 
@@ -26,18 +23,21 @@ class ExpenseListFilters extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        const {filters} = this.props;
         return (
             <div>
                 <input type="text" 
-                       defaultValue={this.props.filters.text}
+                       defaultValue={filters.text}
                        onChange={this.handleTextInput}
                 />
                 <select name="" id="" onChange={this.handleFilterDropdown}>
                     <option value="date">Date</option>
                     <option value="amount">Amount</option>
                 </select>
-                { (this.props.filters.sortBy === 'date') && <DateRangePicker/> }
+                { (filters.sortBy === 'date') && 
+                  <DateRangePicker
+                  startDate={filters.startDate}
+                  endDate={filters.endDate}/> }
             </div>
         );
     }
