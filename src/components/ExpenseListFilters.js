@@ -1,35 +1,47 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import moment from 'moment';
+import {DateRangePicker} from 'react-dates';
 import {setTextFilter, sortByAmount, sortByDate} from '../actions/filters';
 
-const ExpenseListFilters = (props) => {
-    
-    const handleTextInput = (e) => props.dispatch(setTextFilter(e.target.value));
-    
-    const handleFilterDropdown = (e) => {
+
+class ExpenseListFilters extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const state = {}
+    }
+
+    handleTextInput = (e) => this.props.dispatch(setTextFilter(e.target.value))
+
+    handleFilterDropdown = (e) => {
         switch(e.target.value) {
             case 'amount':
-                props.dispatch(sortByAmount());
+                this.props.dispatch(sortByAmount());
                 break;
             case 'date':
-                props.dispatch(sortByDate());
+                this.props.dispatch(sortByDate());
                 break;    
         }
-    };
+    }
 
-    return (
-        <div>
-            <input type="text" 
-                   defaultValue={props.filters.text}
-                   onChange={handleTextInput}
-            />
-            <select name="" id="" onChange={handleFilterDropdown}>
-                <option value="date">Date</option>
-                <option value="amount">Amount</option>
-            </select>
-        </div>
-    )
-};
+    render() {
+        console.log(this.props)
+        return (
+            <div>
+                <input type="text" 
+                       defaultValue={this.props.filters.text}
+                       onChange={this.handleTextInput}
+                />
+                <select name="" id="" onChange={this.handleFilterDropdown}>
+                    <option value="date">Date</option>
+                    <option value="amount">Amount</option>
+                </select>
+                { (this.props.filters.sortBy === 'date') && <DateRangePicker/> }
+            </div>
+        );
+    }
+}
 
 const mapStateToProps = (state) => ({
     filters: state.filters
